@@ -1,25 +1,19 @@
-import pyodbc 
+import psycopg2
 
 
-#conn = pyodbc.connect('Driver={SQL Server};'
- #                     'Server=RON\SQLEXPRESS;'
-  #                    'Database=TestDB;'
-   #                   'Trusted_Connection=yes;')
+conn = psycopg2.connect(
+    host="ec2-54-211-160-34.compute-1.amazonaws.com",
+    database="damuv96ke368nv",
+    user="hkbbigjjpulghz",
+    password="10b9630769d732718011d7a679ee3e8cc695b0f0289a1c4bd0e198bb4e0efae6")
 
 
-conn = pyodbc.connect('DRIVER={SQL Server};SERVER=DESKTOP-GRETRIB;DATABASE=TAREA2;Trusted_Connection=yes')
-
-#cursor = conn.cursor()
-#cursor.execute('SELECT * FROM TAREA2.dbo.DimCliente')
-#rows = cursor.fetchall()
-#for row in rows:
-    #print(row)
 
 
 def catalogo():
     
     cursor = conn.cursor()
-    query="SELECT * FROM PlentyKoko.dbo.Productos"
+    query="SELECT * FROM productos"
     
     
     try:
@@ -28,8 +22,10 @@ def catalogo():
         if data:
             return data
         else:
+            print("no encontro")
             return False
     except Exception as e:
+        print(e)
         return e
     cursor.close() 
     conn.close()
